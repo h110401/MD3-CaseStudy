@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class ConnectMySQL {
     private static Connection connection;
-    private static final String URL="jdbc:mysql://localhost:3306/demoshop";
+    private static final String URL="jdbc:mysql://localhost:3306/shoppingweb";
     private static final String USER = "root";
-    private static final String PASS="123456";
+    private static final String PASS="long";
     public static Connection getConnection(){
         try{
             Class.forName("com.mysql.jdbc.Driver");

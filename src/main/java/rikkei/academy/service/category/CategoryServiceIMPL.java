@@ -33,7 +33,6 @@ private Connection connection = ConnectMySQL.getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return categoryList;
     }
 
@@ -53,7 +52,6 @@ private Connection connection = ConnectMySQL.getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
