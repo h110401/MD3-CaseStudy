@@ -1,4 +1,4 @@
-package rikkei.academy.md3casestudy.model;
+package rikkei.academy.model;
 
 public class Category {
     private int categoryId;

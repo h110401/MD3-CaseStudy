@@ -1,7 +1,7 @@
-package rikkei.academy.md3casestudy.service;
+package rikkei.academy.service.category;
 
-import rikkei.academy.md3casestudy.config.ConnectMySQL;
-import rikkei.academy.md3casestudy.model.Category;
+import rikkei.academy.config.ConnectMySQL;
+import rikkei.academy.model.Category;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,6 +1,6 @@
-package rikkei.academy.md3casestudy.service;
+package rikkei.academy.service.category;
 
-import rikkei.academy.md3casestudy.model.Category;
+import rikkei.academy.model.Category;
 
 import java.util.List;
 

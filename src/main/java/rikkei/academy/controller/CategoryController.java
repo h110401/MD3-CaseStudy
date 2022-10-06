@@ -1,8 +1,8 @@
-package rikkei.academy.md3casestudy.controller;
+package rikkei.academy.controller;
 
-import rikkei.academy.md3casestudy.model.Category;
-import rikkei.academy.md3casestudy.service.CategoryServiceIMPL;
-import rikkei.academy.md3casestudy.service.ICategoryService;
+import rikkei.academy.model.Category;
+import rikkei.academy.service.category.CategoryServiceIMPL;
+import rikkei.academy.service.category.ICategoryService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
