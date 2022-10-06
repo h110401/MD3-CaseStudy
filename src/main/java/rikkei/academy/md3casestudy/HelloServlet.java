@@ -1,4 +1,4 @@
-package com.example.shopdemo;
+package rikkei.academy.md3casestudy;
 
 import java.io.*;
 import javax.servlet.http.*;
