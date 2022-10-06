@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(value = {"/", "/category"})
+@WebServlet(value = "/category")
 public class CategoryController extends HttpServlet {
     private ICategoryService categoryService = new CategoryServiceIMPL();
 
