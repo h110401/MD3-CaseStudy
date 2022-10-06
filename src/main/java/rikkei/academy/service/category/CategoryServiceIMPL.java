@@ -12,12 +12,12 @@ import java.util.List;
 
 public class CategoryServiceIMPL implements ICategoryService {
 private Connection connection = ConnectMySQL.getConnection();
-    private static final String CREATE_CATEGORY = "INSERT INTO category(category_name) values (?);";
+    private static final String CREATE_CATEGORY = "INSERT INTO category(name) values (?);";
     private static final String LIST_CATEGORY = "SELECT * FROM category";
-    private static final String CATEGORY_BY_ID = "SELECT * FROM category WHERE category_id=?;";
-    private static final String UPDATE_CATEGORY = "UPDATE category SET category_name=? where category_id=?;";
-    private static final String DELETE_CATEGORY = "DELETE FROM category WHERE category_id=?";
-    private static final String SEARCH_BY_NAME = "SELECT *FROM category where category_name like ?";
+    private static final String CATEGORY_BY_ID = "SELECT * FROM category WHERE id=?;";
+    private static final String UPDATE_CATEGORY = "UPDATE category SET name=? where id=?;";
+    private static final String DELETE_CATEGORY = "DELETE FROM category WHERE id=?";
+    private static final String SEARCH_BY_NAME = "SELECT *FROM category where name like ?";
     @Override
     public List<Category> findAll() {
         List<Category> categoryList = new ArrayList<>();
@@ -25,8 +25,8 @@ private Connection connection = ConnectMySQL.getConnection();
             PreparedStatement ps = connection.prepareStatement(LIST_CATEGORY);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                int id = rs.getInt("category_id");
-                String name = rs.getString("category_name");
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
                 Category category = new Category(id,name);
                 categoryList.add(category);
             }
@@ -62,7 +62,7 @@ private Connection connection = ConnectMySQL.getConnection();
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                String name = rs.getString("category_name");
+                String name = rs.getString("name");
                 category = new Category(id,name);
             }
         } catch (SQLException e) {
@@ -90,8 +90,8 @@ private Connection connection = ConnectMySQL.getConnection();
             ps.setString(1,'%'+nameSearch+'%');
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                int id = rs.getInt("category_id");
-                String name = rs.getString("category_name");
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
                 Category category = new Category(id,name);
                 categoryList.add(category);
             }
