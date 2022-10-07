@@ -3,6 +3,11 @@
 <html>
 <head>
     <title>Home</title>
+
+    <%--bootstrap--%>
+    <jsp:include page="/bootstrap/bootstrap.jsp"></jsp:include>
+    <%--bootstrap--%>
+
 </head>
 <body>
 
@@ -55,7 +60,6 @@
 <%--chua login--%>
 
 <div>
-    list product
     ${requestScope['productList']}
 </div>
 
