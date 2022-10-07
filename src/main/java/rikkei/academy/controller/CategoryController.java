@@ -63,12 +63,12 @@ public class CategoryController extends HttpServlet {
     public void showListCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Category> categoryList = categoryService.findAll();
         req.setAttribute("categoryList", categoryList);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/category/list.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("category/list.jsp");
         dispatcher.forward(req, resp);
     }
 
     public void showFormCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/category/create.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("category/create.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -77,12 +77,12 @@ public class CategoryController extends HttpServlet {
         Category category = new Category(name);
         categoryService.save(category);
         req.setAttribute("message", "create success");
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/category/create.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("category/create.jsp");
         dispatcher.forward(req, resp);
     }
 
     public void showFormDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/category/delete.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("category/delete.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -90,7 +90,7 @@ public class CategoryController extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         categoryService.deleteById(id);
         req.setAttribute("message", "delete category success");
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/category/delete.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("category/delete.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -98,7 +98,7 @@ public class CategoryController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Category category = categoryService.findById(id);
         request.setAttribute("category", category);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/category/edit.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("category/edit.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -109,7 +109,7 @@ public class CategoryController extends HttpServlet {
         category.setCategoryName(name);
         categoryService.save(category);
         request.setAttribute("message", "edit category success");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/category/edit.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("category/edit.jsp");
         dispatcher.forward(request, response);
 
 
