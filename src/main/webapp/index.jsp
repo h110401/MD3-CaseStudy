@@ -17,6 +17,10 @@
 <div>
     <a href="product">Product Manager</a>
 </div>
+<br>
+<div>
+    <a href="user">User Manager</a>
+</div>
 
 </body>
 </html>

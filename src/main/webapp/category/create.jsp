@@ -3,7 +3,7 @@
   Created by IntelliJ IDEA.
   User: THINKPAD
   Date: 10/5/2022
-  Time: 8:54 PM
+  Time: 8:53 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,15 +12,15 @@
     <title>Title</title>
 </head>
 <body>
-<c:if test='${requestScope["message"]!= null}'>
-    <span style="color:blue">${requestScope["message"]}</span>
+<a href="category">back menu</a>
+<c:if test='${requestScope["message"] != null}'>
+    <span class="message">${requestScope["message"]}</span>
 </c:if>
-<form method="post">
-    <label>Name</label><br>
-    <p value="${requestScope["category"].getCategoryName()}"></p><br>
-    <p>ARE YOU SURE DELETE</p>
-    <button>YES</button>
+<h1>form create category</h1>
+<form action="" method="post">
+    <label>category name</label>
+    <input type="text" name="name"><br>
+    <button>create</button>
 </form>
-<a href="/"><button>NO back menu</button></a>
 </body>
 </html>
