@@ -11,10 +11,7 @@
 <body>
 
 <%
-    request.getRequestDispatcher("user?action=login").forward(request, response);
-
-//    response.sendRedirect("user?action=login");
-
+    response.sendRedirect("home");
 %>
 
 </body>

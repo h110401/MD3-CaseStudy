@@ -28,8 +28,8 @@ public class UserController extends HttpServlet {
                 case "login":
                     formLogin(request, response);
                     break;
-                case "create":
-                    formCreate(request, response);
+                case "register":
+                    formRegister(request, response);
                     break;
                 case "edit":
                     formEdit(request, response);
@@ -43,6 +43,10 @@ public class UserController extends HttpServlet {
         } catch (ServletException | IOException | SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void formRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("login/register.jsp").forward(request, response);
     }
 
     private void formLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,10 +68,6 @@ public class UserController extends HttpServlet {
         request.getRequestDispatcher("user/edit.jsp").forward(request, response);
     }
 
-    private void formCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("user/create.jsp").forward(request, response);
-    }
-
     private void listUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
         List<User> userList = userService.findAll();
@@ -85,8 +85,8 @@ public class UserController extends HttpServlet {
                 case "login":
                     actionLogin(request, response);
                     break;
-                case "create":
-                    actionCreate(request, response);
+                case "register":
+                    actionRegister(request, response);
                     break;
                 case "edit":
                     actionEdit(request, response);
@@ -118,7 +118,7 @@ public class UserController extends HttpServlet {
         session.setAttribute("userLogin", user);
         session.setAttribute("role", user.getRole().getName());
 
-        request.getRequestDispatcher("home/home.jsp").forward(request, response);
+        response.sendRedirect("home");
     }
 
     private void actionDelete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -149,11 +149,23 @@ public class UserController extends HttpServlet {
         listUser(request, response);
     }
 
-    private void actionCreate(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    private void actionRegister(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String name = request.getParameter("name");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+
+        if (userService.existsByUsername(username)) {
+            request.setAttribute("message", "Username already exists");
+            request.getRequestDispatcher("login/register.jsp").forward(request, response);
+            return;
+        }
+
+        if (userService.existsByEmail(email)) {
+            request.setAttribute("message", "Email already exists");
+            request.getRequestDispatcher("login/register.jsp").forward(request, response);
+            return;
+        }
 
         Role role = roleService.findByName("user");
 
@@ -161,9 +173,7 @@ public class UserController extends HttpServlet {
 
         userService.save(user);
 
-        listUser(request, response);
-
+        response.sendRedirect("user?action=login");
     }
-
 
 }

@@ -6,27 +6,58 @@
 </head>
 <body>
 
-home ${sessionScope['userLOgin'].name} / ${sessionScope['role']}
-
-
-<c:if test="${sessionScope['role'] == 'pm' || sessionScope['role'] == 'admin'}">
-    <div>
-        <a href="category">Category Manager</a>
-    </div>
-    <br>
+<%--da login--%>
+<c:if test="${sessionScope['userLogin'] != null}">
+    home ${sessionScope['userLogin'].name} / ${sessionScope['role']}
 
     <div>
-        <a href="product">Product Manager</a>
+        <a href="#">Profile</a>
     </div>
-    <br>
+
+    <div>
+        <a href="#">My Cart</a>
+    </div>
+
+    <c:if test="${sessionScope['role'] == 'pm' || sessionScope['role'] == 'admin'}">
+        <div>
+            <a href="category">Category Manager</a>
+        </div>
+        <br>
+
+        <div>
+            <a href="product">Product Manager</a>
+        </div>
+        <br>
+
+        <div>
+            <a href="#">Cart Manager</a>
+        </div>
+
+    </c:if>
+
+    <c:if test="${sessionScope['role'] == 'admin'}">
+        <div>
+            <a href="user">User Manager</a>
+        </div>
+    </c:if>
 </c:if>
+<%--da login--%>
 
-<c:if test="${sessionScope['role'] == 'admin'}">
-    <div>
-        <a href="user">User Manager</a>
-    </div>
+<%--chua login--%>
+<c:if test="${sessionScope['userLogin'] == null}">
+    <a href="user?action=login">
+        <button>Login</button>
+    </a>
+    <a href="user?action=register">
+        <button>Register</button>
+    </a>
 </c:if>
+<%--chua login--%>
 
+<div>
+    list product
+    ${requestScope['productList']}
+</div>
 
 </body>
 </html>

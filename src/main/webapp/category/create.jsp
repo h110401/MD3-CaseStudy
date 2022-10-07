@@ -12,11 +12,9 @@
     <title>Title</title>
 </head>
 <body>
-<<<<<<< HEAD
+
 <a href="category">back menu</a>
-=======
-<a href="/category">back menu</a>
->>>>>>> long
+
 <c:if test='${requestScope["message"] != null}'>
     <span class="message">${requestScope["message"]}</span>
 </c:if>

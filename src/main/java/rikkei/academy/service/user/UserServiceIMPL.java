@@ -19,6 +19,10 @@ public class UserServiceIMPL implements IUserService {
     private String REMOVE = "delete from user where id = ?";
     private String UPDATE_USER = "update user set name = ?, username = ?, email = ?, password = ?, status = ?, avatar = ? where id = ?";
     private String CHECK_LOGIN = "select id,name from user where username = ? and password = ?";
+    private String CHECK_USERNAME = "select id from user where username = ?";
+    private String CHECK_EMAIL = "select id from user where email = ?";
+    private String CHECK_PASSWORD = "select password from user where id = ?";
+
 
     @Override
     public List<User> findAll() throws SQLException {
@@ -129,5 +133,33 @@ public class UserServiceIMPL implements IUserService {
             }
         }
         return user;
+    }
+
+    @Override
+    public boolean existsByUsername(String username) throws SQLException {
+        try (
+                PreparedStatement ps = connection.prepareStatement(CHECK_USERNAME)
+        ) {
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean existsByEmail(String username) throws SQLException {
+        try (
+                PreparedStatement ps = connection.prepareStatement(CHECK_EMAIL)
+        ) {
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

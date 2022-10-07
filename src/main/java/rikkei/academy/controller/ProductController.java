@@ -14,6 +14,7 @@ import java.util.List;
 @WebServlet(value = {"/product"})
 public class ProductController extends HttpServlet {
     IProductService productService = new ProductServiceIMPL();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -69,8 +70,7 @@ public class ProductController extends HttpServlet {
     private void showListProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Product> productList = productService.findAll();
         request.setAttribute("productList", productList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("product/list.jsp").forward(request, response);
     }
 
     private void showFormCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -105,19 +105,19 @@ public class ProductController extends HttpServlet {
     private void actionSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("search");
         List<Product> productListSearch = productService.findByName(name);
-        request.setAttribute("productList", productListSearch );
+        request.setAttribute("productList", productListSearch);
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
-        System.out.println("Product search"+ productService.findByName(name));
+        System.out.println("Product search" + productService.findByName(name));
 
     }
 
     private void actionDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         productService.delete(id);
-        request.setAttribute("message","delete students success");
+        request.setAttribute("message", "delete students success");
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/delete.jsp");
-        dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
     }
 
     private void actionEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -134,9 +134,9 @@ public class ProductController extends HttpServlet {
         product.setImage(image);
         product.setQuantity(qty);
         productService.save(product);
-        request.setAttribute("message","edit students success");
+        request.setAttribute("message", "edit students success");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/edit.jsp");
-        requestDispatcher.forward(request,response);
+        requestDispatcher.forward(request, response);
     }
 
     private void actionFormCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -145,10 +145,10 @@ public class ProductController extends HttpServlet {
         float price = Float.parseFloat(request.getParameter("price"));
         String image = request.getParameter("image");
         int qty = Integer.parseInt(request.getParameter("qty"));
-        Product product= new Product(name, idCategory, price, image,qty);
+        Product product = new Product(name, idCategory, price, image, qty);
         productService.save(product);
-        request.setAttribute("message","Created students success");
+        request.setAttribute("message", "Created students success");
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/create.jsp");
-        dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
     }
 }
