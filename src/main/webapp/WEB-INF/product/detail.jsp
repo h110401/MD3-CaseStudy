@@ -17,7 +17,7 @@
     <label>Name</label><br>
     <input type="text" name="name" value="${requestScope["product"].getName()}" ><br>
     <label>category</label><br>
-    <input type="text" name="idCategory" value="${requestScope["product"].category.categoryId}" ><br>
+    <input type="text" name="idCategory" value="${requestScope["product"].category.categoryName}" ><br>
     <label>price</label><br>
     <input type="text" name="price" value="${requestScope["product"].getPrice()}" ><br>
     <label>image</label><br>

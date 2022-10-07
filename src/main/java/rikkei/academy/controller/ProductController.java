@@ -54,7 +54,7 @@ public class ProductController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = productService.findById(id);
         request.setAttribute("product", product);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product/detail.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product/delete.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -147,7 +147,7 @@ public class ProductController extends HttpServlet {
         int qty = Integer.parseInt(request.getParameter("qty"));
         Product product= new Product(name, idCategory, price, image,qty);
         productService.save(product);
-        request.setAttribute("message","Created students success");
+        request.setAttribute("message","Created product success");
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product/create.jsp");
         dispatcher.forward(request,response);
     }

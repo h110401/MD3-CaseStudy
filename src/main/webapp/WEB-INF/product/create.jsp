@@ -13,6 +13,7 @@
 </head>
 <body>
 <h1>create product</h1>
+<a href="/product">back menu</a>
 <c:if test='${requestScope["message"] != null}'>
     <span class="message">${requestScope["message"]}</span>
 </c:if>
