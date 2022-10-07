@@ -37,12 +37,19 @@ public class UserController extends HttpServlet {
                 case "delete":
                     formDelete(request, response);
                     break;
+                case "profile":
+                    formProfile(request, response);
+                    break;
                 default:
                     listUser(request, response);
             }
         } catch (ServletException | IOException | SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void formProfile(HttpServletRequest request, HttpServletResponse response) {
+
     }
 
     private void formRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
