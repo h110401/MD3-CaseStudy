@@ -26,7 +26,7 @@
 <form method="post">
     <input type="text" name="search">
     <button type="submit" class="btn btn-primary">Search</button>
-    <a style="border-radius: 50%" type="submit" class="btn btn-primary" href="/">Back menu</a>
+    <a style="border-radius: 50%" type="submit" class="btn btn-primary" href="home">Back menu</a>
 </form>
     <table class="table table-striped">
         <thead>

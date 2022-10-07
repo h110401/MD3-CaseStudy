@@ -21,6 +21,6 @@
     <p>ARE YOU SURE DELETE</p>
     <a href="/"></a><button>YES</button>
 </form>
-<a href="/"><button>NO back menu</button></a>
+<a href="category"><button>NO back menu</button></a>
 </body>
 </html>
