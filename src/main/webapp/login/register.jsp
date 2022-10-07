@@ -10,8 +10,16 @@
 <html>
 <head>
     <title>Register</title>
+
+    <%--bootstrap--%>
+    <jsp:include page="/bootstrap/bootstrap.jsp"></jsp:include>
+    <%--bootstrap--%>
+
+
 </head>
 <body>
+
+
 
 <c:if test="${requestScope['message'] != null}">
     <span>${requestScope['message']}</span>
