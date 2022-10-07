@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Hung
-  Date: 10/6/2022
-  Time: 5:43 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,15 +6,27 @@
 </head>
 <body>
 
-home
+home ${sessionScope['userLOgin'].name} / ${sessionScope['role']}
 
-<div>
-    <a href="category">Category Manager</a>
-</div>
-<br>
-<div>
-    <a href="product">Product Manager</a>
-</div>
+
+<c:if test="${sessionScope['role'] == 'pm' || sessionScope['role'] == 'admin'}">
+    <div>
+        <a href="category">Category Manager</a>
+    </div>
+    <br>
+
+    <div>
+        <a href="product">Product Manager</a>
+    </div>
+    <br>
+</c:if>
+
+<c:if test="${sessionScope['role'] == 'admin'}">
+    <div>
+        <a href="user">User Manager</a>
+    </div>
+</c:if>
+
 
 </body>
 </html>

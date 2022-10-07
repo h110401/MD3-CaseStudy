@@ -18,6 +18,7 @@ public class UserServiceIMPL implements IUserService {
     private String FIND_ID = "select name,username,email,password,status,avatar from user where id = ?";
     private String REMOVE = "delete from user where id = ?";
     private String UPDATE_USER = "update user set name = ?, username = ?, email = ?, password = ?, status = ?, avatar = ? where id = ?";
+    private String CHECK_LOGIN = "select id,name from user where username = ? and password = ?";
 
     @Override
     public List<User> findAll() throws SQLException {
@@ -106,5 +107,27 @@ public class UserServiceIMPL implements IUserService {
             ps.setInt(1, id);
             ps.executeUpdate();
         }
+    }
+
+    @Override
+    public User checkLogin(String username, String password) throws SQLException {
+        User user = null;
+        try (
+                PreparedStatement ps = connection.prepareStatement(CHECK_LOGIN);
+        ) {
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                Role role = roleService.findByUserId(id);
+                user = new User();
+                user.setId(id);
+                user.setName(name);
+                user.setRole(role);
+            }
+        }
+        return user;
     }
 }

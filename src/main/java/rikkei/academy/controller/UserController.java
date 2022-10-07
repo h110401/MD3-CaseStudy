@@ -25,6 +25,9 @@ public class UserController extends HttpServlet {
             String action = request.getParameter("action");
             if (action == null) action = "";
             switch (action) {
+                case "login":
+                    formLogin(request, response);
+                    break;
                 case "create":
                     formCreate(request, response);
                     break;
@@ -40,6 +43,10 @@ public class UserController extends HttpServlet {
         } catch (ServletException | IOException | SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void formLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("login/login.jsp").forward(request, response);
     }
 
     private void formDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -75,6 +82,9 @@ public class UserController extends HttpServlet {
             String action = request.getParameter("action");
             if (action == null) action = "";
             switch (action) {
+                case "login":
+                    actionLogin(request, response);
+                    break;
                 case "create":
                     actionCreate(request, response);
                     break;
@@ -90,6 +100,25 @@ public class UserController extends HttpServlet {
         } catch (ServletException | IOException | SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void actionLogin(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        User user = userService.checkLogin(username, password);
+
+        if (user == null) {
+            request.setAttribute("message", "Login error");
+            request.getRequestDispatcher("login/login.jsp").forward(request, response);
+            return;
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute("userLogin", user);
+        session.setAttribute("role", user.getRole().getName());
+
+        request.getRequestDispatcher("home/home.jsp").forward(request, response);
     }
 
     private void actionDelete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
