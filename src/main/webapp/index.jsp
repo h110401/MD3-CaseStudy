@@ -6,21 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Login</title>
 </head>
 <body>
 
-<div>
-    <a href="category">Category Manager</a>
-</div>
-<br>
-<div>
-    <a href="product">Product Manager</a>
-</div>
-<br>
-<div>
-    <a href="user">User Manager</a>
-</div>
+<%
+    response.sendRedirect("home");
+%>
 
 </body>
 </html>

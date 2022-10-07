@@ -14,7 +14,7 @@
 <body>
 
 <div>
-    <a href="user?action=create">Create User</a>
+    <a href="home">Back</a>
 </div>
 <table border="1" width="100%">
     <tr>
