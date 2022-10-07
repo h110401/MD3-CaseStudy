@@ -19,7 +19,7 @@ public class ProductServiceIMPL implements IProductService{
     private static final  String CREATE_PRODUCT= "INSERT INTO product(name,idcat,price,img,quantity)values (?,?,?,?,?);";
     private static final String UPDATE_PRODUCT= "UPDATE product SET name=?,idcat=?,price=?,img=?,quantity=? where id=?;";
     private static final String DELETE_PRODUCT= "DELETE FROM product WHERE id=?;";
-    private static final String SEARCH_BY_NAME= "SELECT * FROM product WHERE name like ?;";
+    private static final String SEARCH_BY_CATE= "select * from product pr join category ca on pr.idcat = ca.id where ca.name  like ? or pr.name like ?; ";
 
 
 
@@ -107,27 +107,28 @@ public class ProductServiceIMPL implements IProductService{
     }
 
     @Override
-    public List<Product> findByName(String nameSearch) {
-        List<Product> productListSearch = new ArrayList<>();
+    public List<Product> findByCategoryAndByName(String categorySearch) {
+        List<Product> categoryListSearch = new ArrayList<>();
         ICategoryService categoryService = new CategoryServiceIMPL();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_BY_NAME);
-            preparedStatement.setString(1,'%'+ nameSearch+'%');
+            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_BY_CATE);
+            preparedStatement.setString(1,'%'+categorySearch+'%');
+            preparedStatement.setString(2,'%'+categorySearch+'%');
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 Category category = categoryService.findById(rs.getInt("idcat"));
-//                String idCate = String.valueOf(categoryService.findById(id));
                 Float price = rs.getFloat("price");
                 String img = rs.getString("img");
                 int quantity = rs.getInt("quantity");
-                Product product = new Product(id, name, category, price, img, quantity);
-                productListSearch.add(product);
+                Product product = new Product(id,name,category,price,img,quantity);
+                categoryListSearch.add(product);
             }
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return productListSearch;
+        return categoryListSearch;
     }
 }

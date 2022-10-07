@@ -14,9 +14,9 @@
 <body>
 <a href="product?action=create">create product</a>
 <form method="post">
-    <input type="text" name="search" placeholder="Search Product">
+    <input type="text" name="search" placeholder="Search Product and By Name">
     <button type="submit">Search</button>
-    <a href="/">Back menu</a>
+    <a href="/product">Back menu</a>
 </form>
 <table border="1" style="width: 75%">
     <tr>
