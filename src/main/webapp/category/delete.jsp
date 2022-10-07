@@ -19,7 +19,7 @@
     <label>Name</label><br>
     <p value="${requestScope["category"].getCategoryName()}"></p><br>
     <p>ARE YOU SURE DELETE</p>
-    <button>YES</button>
+    <a href="/"></a><button>YES</button>
 </form>
 <a href="category"><button>NO back menu</button></a>
 </body>
