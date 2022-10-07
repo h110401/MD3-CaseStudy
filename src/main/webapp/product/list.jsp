@@ -16,7 +16,9 @@
 <form method="post">
     <input type="text" name="search" placeholder="Search Product">
     <button type="submit">Search</button>
-    <a href="home">Back menu</a>
+
+    <a href="home">Back to home</a>
+
 </form>
 <table border="1" style="width: 75%">
     <tr>
