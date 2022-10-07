@@ -1,13 +1,11 @@
 package rikkei.academy.service.category;
 
 import rikkei.academy.model.Category;
+import rikkei.academy.service.IGenericService;
 
 import java.util.List;
 
-public interface ICategoryService {
-    List<Category> findAll();
-    void save (Category category);
-    Category findById(int id);
-    void deleteById(int id);
+public interface ICategoryService extends IGenericService<Category> {
+
     List<Category> findByName(String name);
 }

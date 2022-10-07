@@ -1,7 +1,7 @@
 package rikkei.academy.model;
 
 public class Product {
-    //  id, name, id category, price, img, quantity
+
     private int id;
     private String name;
     private Category category;
@@ -102,4 +102,5 @@ public class Product {
                 ", idCat=" + idCat +
                 '}';
     }
+
 }

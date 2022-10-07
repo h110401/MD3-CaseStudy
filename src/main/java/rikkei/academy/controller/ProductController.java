@@ -11,7 +11,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(value = {"/","/product"})
+@WebServlet(value = {"/product"})
 public class ProductController extends HttpServlet {
     IProductService productService = new ProductServiceIMPL();
     @Override
@@ -45,7 +45,7 @@ public class ProductController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = productService.findById(id);
         request.setAttribute("product", product);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product/detail.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/detail.jsp");
         dispatcher.forward(request, response);
 
     }
@@ -54,7 +54,7 @@ public class ProductController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = productService.findById(id);
         request.setAttribute("product", product);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product/delete.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/detail.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -62,19 +62,19 @@ public class ProductController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = productService.findById(id);
         request.setAttribute("product", product);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product/edit.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/edit.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showListProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Product> productList = productService.findAll();
         request.setAttribute("productList", productList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showFormCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/create.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -106,7 +106,7 @@ public class ProductController extends HttpServlet {
         String name = request.getParameter("search");
         List<Product> productListSearch = productService.findByName(name);
         request.setAttribute("productList", productListSearch );
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
         System.out.println("Product search"+ productService.findByName(name));
 
@@ -116,7 +116,7 @@ public class ProductController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         productService.delete(id);
         request.setAttribute("message","delete students success");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product/delete.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/delete.jsp");
         dispatcher.forward(request,response);
     }
 
@@ -135,7 +135,7 @@ public class ProductController extends HttpServlet {
         product.setQuantity(qty);
         productService.save(product);
         request.setAttribute("message","edit students success");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/product/edit.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/edit.jsp");
         requestDispatcher.forward(request,response);
     }
 
@@ -147,8 +147,9 @@ public class ProductController extends HttpServlet {
         int qty = Integer.parseInt(request.getParameter("qty"));
         Product product= new Product(name, idCategory, price, image,qty);
         productService.save(product);
-        request.setAttribute("message","Created product success");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product/create.jsp");
+
+        request.setAttribute("message","Created students success");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/create.jsp");
         dispatcher.forward(request,response);
     }
 }
