@@ -2,6 +2,8 @@ package rikkei.academy.controller;
 
 import rikkei.academy.model.Category;
 import rikkei.academy.model.Product;
+import rikkei.academy.service.category.CategoryServiceIMPL;
+import rikkei.academy.service.category.ICategoryService;
 import rikkei.academy.service.product.IProductService;
 import rikkei.academy.service.product.ProductServiceIMPL;
 
@@ -14,7 +16,6 @@ import java.util.List;
 @WebServlet(value = {"/product"})
 public class ProductController extends HttpServlet {
     IProductService productService = new ProductServiceIMPL();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -55,7 +56,7 @@ public class ProductController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = productService.findById(id);
         request.setAttribute("product", product);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("product/detail.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/delete.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -97,18 +98,19 @@ public class ProductController extends HttpServlet {
                 actionDelete(request, response);
                 break;
             default:
-                actionSearch(request, response);
+                actionSearchProduct(request, response);
                 break;
         }
     }
 
-    private void actionSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void actionSearchProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("search");
-        List<Product> productListSearch = productService.findByName(name);
-        request.setAttribute("productList", productListSearch);
+        List<Product> categoryListSearch = productService.findByCategoryAndByName(name);
+        request.setAttribute("productList", categoryListSearch);
+//        request.setAttribute("productList", categoryListSearch);
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
-        System.out.println("Product search" + productService.findByName(name));
+
 
     }
 
@@ -147,7 +149,9 @@ public class ProductController extends HttpServlet {
         int qty = Integer.parseInt(request.getParameter("qty"));
         Product product = new Product(name, idCategory, price, image, qty);
         productService.save(product);
-        request.setAttribute("message", "Created students success");
+
+        request.setAttribute("message","Created product success");
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/create.jsp");
         dispatcher.forward(request, response);
     }
