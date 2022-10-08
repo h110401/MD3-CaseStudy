@@ -7,10 +7,22 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<form method="post">
+    <p>Name:</p>
+    <input type="text" name="name" value="${sessionScope['userLogin'].name}">
+    <p>Email:</p>
+    <input type="text" name="email" value="${sessionScope['userLogin'].email}">
+    <p>Username:</p>
+    <input type="text" name="username" value="${sessionScope['userLogin'].username}">
+    <p>Password:</p>
+    <input type="text" name="password" value="${sessionScope['userLogin'].password}">
+    <p>avatar:</p>
+    <input type="text" name="avatar" value="${sessionScope['userLogin'].avatar}">
+    <button>Summit</button>
+</form>
+</body>
 </html>

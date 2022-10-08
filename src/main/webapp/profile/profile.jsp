@@ -11,8 +11,25 @@
     <title>Profile</title>
 </head>
 <body>
-
-
-
+<h1>form profile</h1>
+<table>
+    <tr>
+        <td>id</td>
+        <td>${sessionScope['userLogin'].id}</td>
+    </tr>
+    <tr>
+        <td>name:</td>
+        <td>${sessionScope['userLogin'].name}</td>
+    </tr>
+    <tr>
+        <td>email:</td>
+        <td>${sessionScope['userLogin'].email}</td>
+    </tr>
+    <tr>
+        <td>avatar:</td>
+        <td><img style="width: 200px ; height: 200px"  src="${sessionScope['userLogin'].avatar}"></td>
+    </tr>
+    <a href="profile?action=edit">Edit</a>
+</table>
 </body>
 </html>

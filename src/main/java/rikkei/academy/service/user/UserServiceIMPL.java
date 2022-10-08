@@ -18,7 +18,7 @@ public class UserServiceIMPL implements IUserService {
     private String FIND_ID = "select name,username,email,password,status,avatar from user where id = ?";
     private String REMOVE = "delete from user where id = ?";
     private String UPDATE_USER = "update user set name = ?, username = ?, email = ?, password = ?, status = ?, avatar = ? where id = ?";
-    private String CHECK_LOGIN = "select id,name from user where username = ? and password = ?";
+    private String CHECK_LOGIN = "select id,name,email,avatar from user where username = ? and password = ?";
     private String CHECK_USERNAME = "select id from user where username = ?";
     private String CHECK_EMAIL = "select id from user where email = ?";
     private String CHECK_PASSWORD = "select password from user where id = ?";
@@ -125,10 +125,16 @@ public class UserServiceIMPL implements IUserService {
             if (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
+                String email = rs.getString(3);
+                String avatar = rs.getString(4);
                 Role role = roleService.findByUserId(id);
                 user = new User();
                 user.setId(id);
                 user.setName(name);
+                user.setEmail(email);
+                user.setAvatar(avatar);
+                user.setUsername(username);
+                user.setPassword(password);
                 user.setRole(role);
             }
         }

@@ -303,7 +303,7 @@
     home ${sessionScope['userLogin'].name} / ${sessionScope['role']}
 
     <div>
-        <a href="">Profile</a>
+        <a href="/profile">Profile</a>
     </div>
 
     <div>
