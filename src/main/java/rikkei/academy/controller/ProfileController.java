@@ -15,10 +15,11 @@ import java.sql.SQLException;
 @WebServlet(value = "/profile")
 public class ProfileController extends HttpServlet {
     IUserService userService = new UserServiceIMPL();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action == null) action= "";
+        if (action == null) action = "";
         switch (action) {
             case "edit":
                 showFormEdit(request, response);
@@ -64,13 +65,15 @@ public class ProfileController extends HttpServlet {
         String password = request.getParameter("password");
         String avatar = request.getParameter("avatar");
 
-        User user = userService.findById(userLogin.getId());
-        user.setName(name);
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setAvatar(avatar);
-        userService.save(user);
+        userLogin.setName(name);
+        userLogin.setUsername(username);
+        userLogin.setEmail(email);
+        userLogin.setPassword(password);
+        userLogin.setAvatar(avatar);
+        userService.save(userLogin);
+
+        request.getSession().setAttribute("userLogin", userLogin);
+
         showProfile(request, response);
     }
 }

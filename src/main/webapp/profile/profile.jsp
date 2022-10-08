@@ -12,6 +12,7 @@
 </head>
 <body>
 <h1>form profile</h1>
+<a href="home">Back</a>
 <table>
     <tr>
         <td>id</td>

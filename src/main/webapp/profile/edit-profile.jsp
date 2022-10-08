@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
+<a href="profile">Back</a>
 <form method="post">
     <p>Name:</p>
     <input type="text" name="name" value="${sessionScope['userLogin'].name}">
