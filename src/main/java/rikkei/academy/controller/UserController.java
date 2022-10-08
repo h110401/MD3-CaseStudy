@@ -65,7 +65,6 @@ public class UserController extends HttpServlet {
         request.setAttribute("id", id);
 
         request.getRequestDispatcher("user/delete.jsp").forward(request, response);
-
     }
 
     private void formEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {

@@ -78,9 +78,9 @@
                 <li class="nav-item">
                     <a type="button" class="btn btn-dark" id="signUp" href="user?action=register">Sign Up</a>
                 </li>
-<%--                <li class="nav-item">--%>
-<%--                    <a type="button" class="btn btn-dark" id="logOut" onclick="logOut()" href="index.html">Log Out</a>--%>
-<%--                </li>--%>
+                <%--                <li class="nav-item">--%>
+                <%--                    <a type="button" class="btn btn-dark" id="logOut" onclick="logOut()" href="index.html">Log Out</a>--%>
+                <%--                </li>--%>
             </ul>
         </div>
     </div>
@@ -307,7 +307,7 @@
     </div>
 
     <div>
-        <a href="#">My Cart</a>
+        <a href="cart">My Cart</a>
     </div>
 
     <c:if test="${sessionScope['role'] == 'pm' || sessionScope['role'] == 'admin'}">
@@ -347,8 +347,18 @@
 <%--chua login--%>
 
 <div>
-    ${requestScope['productList']}
+    <table border="1" width="100%">
+        <c:forEach items="${requestScope['productList']}" var="pr">
+            <tr>
+                <td>${pr.name}</td>
+                <td>
+                    <a href="cart?action=add&id=${pr.id}&qty=1">
+                        <button>ADD TO CART</button>
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 </div>
-
 </body>
 </html>

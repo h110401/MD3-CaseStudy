@@ -9,15 +9,17 @@ public class Cart {
 
     private User user;
 
-    List<Product> products = new ArrayList<>();
+    private int status = 0;
+
+    private List<Product> products = new ArrayList<>();
 
     public Cart() {
     }
 
-    public Cart(int id, User user, List<Product> products) {
+    public Cart(int id, User user, int status) {
         this.id = id;
         this.user = user;
-        this.products = products;
+        this.status = status;
     }
 
     public int getId() {
@@ -50,6 +52,15 @@ public class Cart {
                 "id=" + id +
                 ", user=" + user +
                 ", products=" + products +
+                ", status=" + status +
                 '}';
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

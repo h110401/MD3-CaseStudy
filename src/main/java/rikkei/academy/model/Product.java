@@ -29,6 +29,7 @@ public class Product {
         this.price = price;
         this.image = image;
         this.quantity = quantity;
+        this.setIdCat(category.getCategoryId());
     }
 
     public Product(String name, int category, float price, String image, int qty) {
@@ -61,6 +62,7 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+        this.setIdCat(category.getCategoryId());
     }
 
     public float getPrice() {
@@ -86,8 +88,6 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-
 
 
     @Override
