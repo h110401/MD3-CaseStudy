@@ -35,7 +35,7 @@
                         <input type="text" id="username" class="form-control form-control-lg" name="username"
                                placeholder="Enter a valid email address" />
                         <div id="usernameError" style="color:red;font-size: 12px"></div>
-                        <label class="form-label" for="username">Email address</label>
+                        <label class="form-label" for="username">User Name</label>
                     </div>
 
                     <!-- Password input -->
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button class="btn btn-primary btn-lg"
+                        <button type="submit" class="btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
                         <div id="logInError" style="color:red;font-size: 12px"></div>
                         <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="user?action=register"

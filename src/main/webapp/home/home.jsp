@@ -204,13 +204,13 @@
         <c:forEach items="${requestScope['productList']}" var="pr">
             <div class="col">
                 <div class="card" style="width: 293px">
-                    <img src="https://cms-cdn.fnatic.com/images/5gii1snx/production/9d791017fa04fd117d8bdbb754252bae265a2593-8192x5464.jpg?rect=1525%2C0%2C5143%2C5464&w=1920&h=1700&q=100&fit=clip&auto=format"
+                    <img src="${pr.image}" width="200" height="200"
                          class="img-prd" alt="...">
-                    <button class="white-text"><i class="bi bi-bag-plus" aria-hidden="true"></i></button>
+<%--                    <button class="white-text"><i class="bi bi-bag-plus" aria-hidden="true"></i></button>--%>
                     <div class="card-body">
-                        <p class="content-product-h3">FIRE Elements, Black</p>
-                        <p class="card-text"><small class="text-muted">Champion x Fnatic</small></p>
-                        <p class="price">119€</p>
+                        <p class="content-product-h3">${pr.name}</p>
+                        <p class="card-text"><small class="text-muted">${pr.category.categoryName}</small></p>
+                        <p class="price">${pr.price}</p>
                     </div>
                 </div>
             </div>
