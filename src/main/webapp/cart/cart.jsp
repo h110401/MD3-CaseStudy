@@ -12,12 +12,22 @@
     <title>Cart</title>
 </head>
 <body>
-
-<table>
-    <c:forEach items="${requestScope['cart'].products}" var="product">
+<a href="home">Back</a>
+<table border="1" width="100%">
+    <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Image</th>
+    </tr>
+    <c:forEach items="${requestScope['cart'].products}" var="pr">
         <tr>
-            <td>${product.name}</td>
-            <td>${product.quantity}</td>
+            <td>${pr.name}</td>
+
+            <td>${pr.quantity}</td>
+
+            <td>
+                <img src="${pr.image}" alt="img" width="200" height="200">
+            </td>
         </tr>
     </c:forEach>
 </table>
