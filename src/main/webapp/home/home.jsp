@@ -87,8 +87,12 @@
 
     <!--  Modal -->
     <button id="cartButton">
-        <i class="bi bi-bag-plus" aria-hidden="true"></i>
-        Shopping cart
+        <a href="cart"><i class="bi bi-bag-plus" aria-hidden="true">Shopping cart</i></a>
+
+    </button>
+    <button id="profile">
+        <a href="/profile"><i class="bi bi-person-plus-fill">My Profile</i></a>
+
     </button>
     <div id="myModal" class="modal">
         <div class="modal-content">
@@ -206,7 +210,7 @@
                 <div class="card" style="width: 293px">
                     <img src="${pr.image}" width="200" height="200"
                          class="img-prd" alt="...">
-<%--                    <button class="white-text"><i class="bi bi-bag-plus" aria-hidden="true"></i></button>--%>
+                    <a href="cart?action=add&id=${pr.id}&qty=1"><button class="white-text"><i class="bi bi-bag-plus"></i></button></a>
                     <div class="card-body">
                         <p class="content-product-h3">${pr.name}</p>
                         <p class="card-text"><small class="text-muted">${pr.category.categoryName}</small></p>
@@ -336,29 +340,29 @@
 <%--da login--%>
 
 <%--chua login--%>
-<c:if test="${sessionScope['userLogin'] == null}">
-    <a href="user?action=login">
-        <button>Login</button>
-    </a>
-    <a href="user?action=register">
-        <button>Register</button>
-    </a>
-</c:if>
+<%--<c:if test="${sessionScope['userLogin'] == null}">--%>
+<%--    <a href="user?action=login">--%>
+<%--        <button>Login</button>--%>
+<%--    </a>--%>
+<%--    <a href="user?action=register">--%>
+<%--        <button>Register</button>--%>
+<%--    </a>--%>
+<%--</c:if>--%>
 <%--chua login--%>
 
-<div>
-    <table border="1" width="100%">
-        <c:forEach items="${requestScope['productList']}" var="pr">
-            <tr>
-                <td>${pr.name}</td>
-                <td>
-                    <a href="cart?action=add&id=${pr.id}&qty=1">
-                        <button>ADD TO CART</button>
-                    </a>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-</div>
+<%--<div>--%>
+<%--    <table border="1" width="100%">--%>
+<%--        <c:forEach items="${requestScope['productList']}" var="pr">--%>
+<%--            <tr>--%>
+<%--                <td>${pr.name}</td>--%>
+<%--                <td>--%>
+<%--                    <a href="cart?action=add&id=${pr.id}&qty=1">--%>
+<%--                        <button>ADD TO CART</button>--%>
+<%--                    </a>--%>
+<%--                </td>--%>
+<%--            </tr>--%>
+<%--        </c:forEach>--%>
+<%--    </table>--%>
+<%--</div>--%>
 </body>
 </html>
