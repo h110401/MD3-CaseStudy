@@ -63,4 +63,14 @@ public class Cart {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public float getTotal() {
+        float total = 0;
+
+        for (Product p : products) {
+            total += p.getPrice() * p.getQuantity();
+        }
+
+        return total;
+    }
 }

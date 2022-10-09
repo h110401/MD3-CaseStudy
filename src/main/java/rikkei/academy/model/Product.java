@@ -8,7 +8,7 @@ public class Product {
     private float price;
     private String image;
     private int quantity;
-
+    private int stock;
     private int idCat;
 
     public int getIdCat() {
@@ -38,6 +38,14 @@ public class Product {
         this.price = price;
         this.image = image;
         this.quantity = qty;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public int getId() {

@@ -87,8 +87,12 @@
 
     <!--  Modal -->
     <button id="cartButton">
-        <i class="bi bi-bag-plus" aria-hidden="true"></i>
-        Shopping cart
+        <a href="cart"><i class="bi bi-bag-plus" aria-hidden="true">Shopping cart</i></a>
+
+    </button>
+    <button id="profile">
+        <a href="/profile"><i class="bi bi-person-plus-fill">My Profile</i></a>
+
     </button>
     <div id="myModal" class="modal">
         <div class="modal-content">
@@ -121,7 +125,7 @@
 </nav>
 
 
-<div id="intro">
+<div id="intro" style="text-align: center">
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" style="padding-top: 5px">
@@ -191,7 +195,7 @@
     </div>
 </div>
 
-<div style="margin-left: 110px" class="container">
+<div style="margin-left: 15px" class="container">
     <p id="apparel">APPAREL</p>
     <h6 style="color: grey">Official Fnatic Apparel</h6>
     <br>
@@ -199,14 +203,14 @@
 </div>
 
 <%--******************************************************************--%>
-<div class="container-fluid mx-3">
+<div class="container-fluid mx-4">
     <div class="row row-cols-2 row-cols-md-4">
         <c:forEach items="${requestScope['productList']}" var="pr">
             <div class="col">
                 <div class="card" style="width: 293px">
-                    <img src="${pr.image}" width="200" height="200"
+                    <img src="${pr.image}" width="293" height="250"
                          class="img-prd" alt="...">
-<%--                    <button class="white-text"><i class="bi bi-bag-plus" aria-hidden="true"></i></button>--%>
+                    <a href="cart?action=add&id=${pr.id}&qty=1"><button class="white-text"><i class="bi bi-bag-plus"></i></button></a>
                     <div class="card-body">
                         <p class="content-product-h3">${pr.name}</p>
                         <p class="card-text"><small class="text-muted">${pr.category.categoryName}</small></p>
@@ -278,8 +282,8 @@
         </div>
     </div>
 
-    <div>
-        <div style="margin-right: 30px">
+    <div style="margin-left: 100px">
+        <div >
             <i class="bi bi-github" id="github"></i>
             <i class="bi bi-discord" id="discord"></i>
             <i class="bi bi-facebook" id="fb"></i>
@@ -295,7 +299,6 @@
     </div>
 </footer>
 
-<div id="messageIcon" onclick=""><i class="bi bi-chat-left-text"></i></div>
 
 
 <%--da login--%>
@@ -303,7 +306,7 @@
     home ${sessionScope['userLogin'].name} / ${sessionScope['role']}
 
     <div>
-        <a href="/profile">Profile</a>
+        <a href="profile">Profile</a>
     </div>
 
     <div>
@@ -322,7 +325,7 @@
         <br>
 
         <div>
-            <a href="#">Cart Manager</a>
+            <a href="cart?action=manager">Cart Manager</a>
         </div>
 
     </c:if>
@@ -336,29 +339,29 @@
 <%--da login--%>
 
 <%--chua login--%>
-<c:if test="${sessionScope['userLogin'] == null}">
-    <a href="user?action=login">
-        <button>Login</button>
-    </a>
-    <a href="user?action=register">
-        <button>Register</button>
-    </a>
-</c:if>
+<%--<c:if test="${sessionScope['userLogin'] == null}">--%>
+<%--    <a href="user?action=login">--%>
+<%--        <button>Login</button>--%>
+<%--    </a>--%>
+<%--    <a href="user?action=register">--%>
+<%--        <button>Register</button>--%>
+<%--    </a>--%>
+<%--</c:if>--%>
 <%--chua login--%>
 
-<div>
-    <table border="1" width="100%">
-        <c:forEach items="${requestScope['productList']}" var="pr">
-            <tr>
-                <td>${pr.name}</td>
-                <td>
-                    <a href="cart?action=add&id=${pr.id}&qty=1">
-                        <button>ADD TO CART</button>
-                    </a>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-</div>
+<%--<div>--%>
+<%--    <table border="1" width="100%">--%>
+<%--        <c:forEach items="${requestScope['productList']}" var="pr">--%>
+<%--            <tr>--%>
+<%--                <td>${pr.name}</td>--%>
+<%--                <td>--%>
+<%--                    <a href="cart?action=add&id=${pr.id}&qty=1">--%>
+<%--                        <button>ADD TO CART</button>--%>
+<%--                    </a>--%>
+<%--                </td>--%>
+<%--            </tr>--%>
+<%--        </c:forEach>--%>
+<%--    </table>--%>
+<%--</div>--%>
 </body>
 </html>

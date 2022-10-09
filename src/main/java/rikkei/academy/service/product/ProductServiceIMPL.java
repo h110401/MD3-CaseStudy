@@ -12,15 +12,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductServiceIMPL implements IProductService{
+public class ProductServiceIMPL implements IProductService {
     private Connection connection = ConnectMySQL.getConnection();
+    private final ICategoryService categoryService = new CategoryServiceIMPL();
     private static final String LIST_PRODUCT = "select * from product";
     private static final String PRODUCT_BY_ID = "SELECT * FROM product where id = ?";
-    private static final  String CREATE_PRODUCT= "INSERT INTO product(name,idcat,price,img,quantity)values (?,?,?,?,?);";
-    private static final String UPDATE_PRODUCT= "UPDATE product SET name=?,idcat=?,price=?,img=?,quantity=? where id=?;";
-    private static final String DELETE_PRODUCT= "DELETE FROM product WHERE id=?;";
-    private static final String SEARCH_BY_CATE= "select * from product pr join category ca on pr.idcat = ca.id where ca.name  like ? or pr.name like ?; ";
-
+    private static final String CREATE_PRODUCT = "INSERT INTO product(name,idcat,price,img,quantity)values (?,?,?,?,?);";
+    private static final String UPDATE_PRODUCT = "UPDATE product SET name=?,idcat=?,price=?,img=?,quantity=? where id=?;";
+    private static final String DELETE_PRODUCT = "DELETE FROM product WHERE id=?;";
+    private static final String SEARCH_BY_CATE = "select * from product pr join category ca on pr.idcat = ca.id where ca.name  like ? or pr.name like ?; ";
 
 
     @Override
@@ -53,20 +53,20 @@ public class ProductServiceIMPL implements IProductService{
             System.out.println(findById(product.getId()));
             if (findById(product.getId()) == null) {
                 PreparedStatement preparedStatement = connection.prepareStatement(CREATE_PRODUCT);
-                preparedStatement.setString(1,product.getName());
-                preparedStatement.setInt(2,product.getIdCat());
-                preparedStatement.setFloat(3,product.getPrice());
-                preparedStatement.setString(4,product.getImage());
-                preparedStatement.setInt(5,product.getQuantity());
+                preparedStatement.setString(1, product.getName());
+                preparedStatement.setInt(2, product.getIdCat());
+                preparedStatement.setFloat(3, product.getPrice());
+                preparedStatement.setString(4, product.getImage());
+                preparedStatement.setInt(5, product.getQuantity());
                 preparedStatement.executeUpdate();
-            }else {
+            } else {
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PRODUCT);
-                preparedStatement.setString(1,product.getName());
-                preparedStatement.setInt(2,product.getIdCat());
-                preparedStatement.setFloat(3,product.getPrice());
-                preparedStatement.setString(4,product.getImage());
-                preparedStatement.setInt(5,product.getQuantity());
-                preparedStatement.setInt(6,product.getId());
+                preparedStatement.setString(1, product.getName());
+                preparedStatement.setInt(2, product.getIdCat());
+                preparedStatement.setFloat(3, product.getPrice());
+                preparedStatement.setString(4, product.getImage());
+                preparedStatement.setInt(5, product.getQuantity());
+                preparedStatement.setInt(6, product.getId());
                 preparedStatement.executeUpdate();
             }
         } catch (Exception e) {
@@ -79,15 +79,15 @@ public class ProductServiceIMPL implements IProductService{
         Product product = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(PRODUCT_BY_ID);
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
-                int idCate =resultSet.getInt("idcat");
+                int idCate = resultSet.getInt("idcat");
                 float price = resultSet.getFloat("price");
                 String img = resultSet.getString("img");
                 int quantity = resultSet.getInt("quantity");
-                product = new Product(id,name, new CategoryServiceIMPL().findById(idCate), price, img, quantity);
+                product = new Product(id, name, categoryService.findById(idCate), price, img, quantity);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -99,7 +99,7 @@ public class ProductServiceIMPL implements IProductService{
     public void delete(int id) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT);
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -112,8 +112,8 @@ public class ProductServiceIMPL implements IProductService{
         ICategoryService categoryService = new CategoryServiceIMPL();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_BY_CATE);
-            preparedStatement.setString(1,'%'+categorySearch+'%');
-            preparedStatement.setString(2,'%'+categorySearch+'%');
+            preparedStatement.setString(1, '%' + categorySearch + '%');
+            preparedStatement.setString(2, '%' + categorySearch + '%');
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -122,7 +122,7 @@ public class ProductServiceIMPL implements IProductService{
                 Float price = rs.getFloat("price");
                 String img = rs.getString("img");
                 int quantity = rs.getInt("quantity");
-                Product product = new Product(id,name,category,price,img,quantity);
+                Product product = new Product(id, name, category, price, img, quantity);
                 categoryListSearch.add(product);
             }
 
