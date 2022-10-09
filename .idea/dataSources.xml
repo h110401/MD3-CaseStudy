@@ -1,40 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="demoshop@localhost" uuid="ba5f68fc-2148-43d4-9134-ac537ae16890">
+    <data-source source="LOCAL" name="demoshop@localhost" uuid="5623866e-fa99-43d3-bd13-63ccda575d17">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/demoshop</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="demoshop@localhost" uuid="ea9700bc-5945-4474-9e8c-80f879666ff1">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/demoshop</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="demoshop@localhost [2]" uuid="ee01ffc1-67fa-4c62-b923-998011e9059c">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/demoshop</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-<<<<<<< HEAD
-    <data-source source="LOCAL" name="@localhost" uuid="e4d2bc10-0e91-4c64-9c30-8b5ffd7a88ce">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
-=======
-    <data-source source="LOCAL" name="demoshop@localhost [3]" uuid="3b553e42-1c3a-425b-b4d4-ddc14d87686b">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/demoshop</jdbc-url>
->>>>>>> long
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

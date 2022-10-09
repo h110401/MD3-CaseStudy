@@ -86,14 +86,14 @@
     </div>
 
     <!--  Modal -->
-    <button id="cartButton">
-        <a href="cart"><i class="bi bi-bag-plus" aria-hidden="true">Shopping cart</i></a>
+    <a href="cart">
+        <button id="cartButton"><i class="bi bi-bag-plus" aria-hidden="true">Shopping cart</i></button>
+    </a>
 
-    </button>
-    <button id="profile">
-        <a href="/profile"><i class="bi bi-person-plus-fill">My Profile</i></a>
+    <a href="/profile">
+        <button id="profile"><i class="bi bi-person-plus-fill">My Profile</i></button>
+    </a>
 
-    </button>
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -210,7 +210,9 @@
                 <div class="card" style="width: 293px">
                     <img src="${pr.image}" width="293" height="250"
                          class="img-prd" alt="...">
-                    <a href="cart?action=add&id=${pr.id}&qty=1"><button class="white-text"><i class="bi bi-bag-plus"></i></button></a>
+                    <a href="cart?action=add&id=${pr.id}&qty=1">
+                        <button class="white-text"><i class="bi bi-bag-plus"></i></button>
+                    </a>
                     <div class="card-body">
                         <p class="content-product-h3">${pr.name}</p>
                         <p class="card-text"><small class="text-muted">${pr.category.categoryName}</small></p>
@@ -283,7 +285,7 @@
     </div>
 
     <div style="margin-left: 100px">
-        <div >
+        <div>
             <i class="bi bi-github" id="github"></i>
             <i class="bi bi-discord" id="discord"></i>
             <i class="bi bi-facebook" id="fb"></i>
@@ -299,45 +301,41 @@
     </div>
 </footer>
 
-
-
+<div>
 <%--da login--%>
 <c:if test="${sessionScope['userLogin'] != null}">
-    home ${sessionScope['userLogin'].name} / ${sessionScope['role']}
+    home ${sessionScope['userLogin'].name} / ${sessionScope['role']}<br>
 
-    <div>
-        <a href="profile">Profile</a>
-    </div>
 
-    <div>
-        <a href="cart">My Cart</a>
-    </div>
+            <a href="profile"> <button><i aria-hidden="true">Profile</i></button></a>
+            <a href="cart"><button><i aria-hidden="true">My Cart</i></button></a>
+
 
     <c:if test="${sessionScope['role'] == 'pm' || sessionScope['role'] == 'admin'}">
-        <div>
-            <a href="category">Category Manager</a>
-        </div>
-        <br>
 
-        <div>
-            <a href="product">Product Manager</a>
-        </div>
-        <br>
 
-        <div>
-            <a href="cart?action=manager">Cart Manager</a>
-        </div>
+            <a href="category">
+                <button><i aria-hidden="true">Category Manager</i></button>
+            </a>
+
+            <a href="product">
+                <button><i aria-hidden="true">Product Manager</i></button>
+            </a>
+
+            <a href="cart?action=manager">
+                <button><i aria-hidden="true">Cart Manager</i></button>
+            </a>
+
 
     </c:if>
-
     <c:if test="${sessionScope['role'] == 'admin'}">
-        <div>
-            <a href="user">User Manager</a>
-        </div>
+        <a href="user">
+            <button><i aria-hidden="true">User Manager</i></button>
+        </a>
     </c:if>
 </c:if>
 <%--da login--%>
-
+</div>
 <%--chua login--%>
 <%--<c:if test="${sessionScope['userLogin'] == null}">--%>
 <%--    <a href="user?action=login">--%>

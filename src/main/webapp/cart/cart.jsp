@@ -50,9 +50,8 @@
     Total: ${requestScope['cart'].getTotal()}
 </div>
 
-<a href="cart?action=order">Order</a><br><br>
-
-<a href="cart?action=history">History</a><br><br>
+<a href="cart?action=order"><button><i class="bi bi-person-plus-fill">Order</i></button></a><br><br>
+<a href="cart?action=history"><button><i class="bi bi-person-plus-fill">History</i></button></a><br><br>
 
 
 </body>
