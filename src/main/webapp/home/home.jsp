@@ -125,7 +125,7 @@
 </nav>
 
 
-<div id="intro">
+<div id="intro" style="text-align: center">
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" style="padding-top: 5px">
@@ -195,7 +195,7 @@
     </div>
 </div>
 
-<div style="margin-left: 110px" class="container">
+<div style="margin-left: 15px" class="container">
     <p id="apparel">APPAREL</p>
     <h6 style="color: grey">Official Fnatic Apparel</h6>
     <br>
@@ -203,12 +203,12 @@
 </div>
 
 <%--******************************************************************--%>
-<div class="container-fluid mx-3">
+<div class="container-fluid mx-4">
     <div class="row row-cols-2 row-cols-md-4">
         <c:forEach items="${requestScope['productList']}" var="pr">
             <div class="col">
                 <div class="card" style="width: 293px">
-                    <img src="${pr.image}" width="200" height="200"
+                    <img src="${pr.image}" width="293" height="250"
                          class="img-prd" alt="...">
                     <a href="cart?action=add&id=${pr.id}&qty=1"><button class="white-text"><i class="bi bi-bag-plus"></i></button></a>
                     <div class="card-body">
@@ -282,8 +282,8 @@
         </div>
     </div>
 
-    <div>
-        <div style="margin-right: 30px">
+    <div style="margin-left: 100px">
+        <div >
             <i class="bi bi-github" id="github"></i>
             <i class="bi bi-discord" id="discord"></i>
             <i class="bi bi-facebook" id="fb"></i>
@@ -299,7 +299,6 @@
     </div>
 </footer>
 
-<div id="messageIcon" onclick=""><i class="bi bi-chat-left-text"></i></div>
 
 
 <%--da login--%>
