@@ -9,6 +9,8 @@ import rikkei.academy.service.product.ProductServiceIMPL;
 import rikkei.academy.service.user.IUserService;
 import rikkei.academy.service.user.UserServiceIMPL;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +22,13 @@ public class CartServiceIMPL implements ICartService {
     private final IProductService productService = new ProductServiceIMPL();
     private final String LIST_CART = "select id,iduser,status from cart";
     private final String INSERT_CART = "insert into cart(iduser) value (?)";
-    private final String FIND_USER_ID = "select id,status from cart where iduser = ? and status = '0'";
+    private final String FIND_BY_ID = "select iduser,status from cart where id = ?";
+    private final String FIND_USER_ID = "select id from cart where iduser = ? and status = ?";
+    private final String FIND_CART_STATUS = "select id,iduser from cart where status = ?";
     private final String FIND_PRODUCT_OF_CART = "select idproduct, quantity from cartproduct where idcart = ?";
     private final String REMOVE_CART = "delete from cart where id = ?";
+    private final String REMOVE_PRODUCT_OF_CART = "delete from cartproduct where idcart = ? and idproduct = ?";
+    private final String EDIT_CART_STATUS = "update cart set status = ? where id = ?";
 
     @Override
     public List<Cart> findAll() throws SQLException {
@@ -50,6 +56,7 @@ public class CartServiceIMPL implements ICartService {
 
     }
 
+    @Override
     public Cart save(int idUser) throws SQLException {
         try (
                 PreparedStatement ps = connection.prepareStatement(INSERT_CART, Statement.RETURN_GENERATED_KEYS)
@@ -67,7 +74,6 @@ public class CartServiceIMPL implements ICartService {
 
     @Override
     public void addProductToCart(int idCart, int idProduct, int quantity) throws SQLException {
-        connection.setAutoCommit(false);
         try (
                 PreparedStatement ps_check = connection.prepareStatement("select quantity from cartproduct where idcart = ? and idproduct = ?");
                 PreparedStatement ps_save = connection.prepareStatement("insert into cartproduct(idcart,idproduct,quantity) value (?,?,?)");
@@ -89,12 +95,65 @@ public class CartServiceIMPL implements ICartService {
                 ps_save.executeUpdate();
             }
         }
-        connection.commit();
+    }
+
+    @Override
+    public void removeProductFromCart(int idCart, int idProduct) throws SQLException {
+        try (
+                PreparedStatement ps = connection.prepareStatement(REMOVE_PRODUCT_OF_CART)
+        ) {
+            ps.setInt(1, idCart);
+            ps.setInt(2, idProduct);
+            ps.executeUpdate();
+        }
+    }
+
+    @Override
+    public void editCartStatus(int idCart, int status) throws SQLException {
+        try (
+                PreparedStatement ps = connection.prepareStatement(EDIT_CART_STATUS)
+        ) {
+            ps.setString(1, String.valueOf(status));
+            ps.setInt(2, idCart);
+            ps.executeUpdate();
+        }
+    }
+
+    @Override
+    public List<Cart> findCartByStatus(int status) throws SQLException {
+        List<Cart> result = new ArrayList<>();
+        try (
+                PreparedStatement ps = connection.prepareStatement(FIND_CART_STATUS)
+        ) {
+            ps.setString(1, String.valueOf(status));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int idUser = rs.getInt("iduser");
+                Cart cart = new Cart(id, userService.findById(idUser), status);
+                cart.setProducts(this.findProductsByCartId(id));
+                result.add(cart);
+            }
+        }
+        return result;
     }
 
     @Override
     public Cart findById(int id) throws SQLException {
-        return null;
+        Cart cart = null;
+        try (
+                PreparedStatement ps = connection.prepareStatement(FIND_BY_ID)
+        ) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int idUser = rs.getInt(1);
+                int status = rs.getInt(2);
+                cart = new Cart(id, userService.findById(idUser), status);
+                cart.setProducts(this.findProductsByCartId(id));
+            }
+        }
+        return cart;
     }
 
     @Override
@@ -108,21 +167,22 @@ public class CartServiceIMPL implements ICartService {
     }
 
     @Override
-    public Cart findCartByUSerId(int idUser) throws SQLException {
-        Cart cart = null;
+    public List<Cart> findCartByUSerId(int idUser, int status) throws SQLException {
+        List<Cart> cartList = new ArrayList<>();
         try (
                 PreparedStatement ps = connection.prepareStatement(FIND_USER_ID);
         ) {
             ps.setInt(1, idUser);
+            ps.setString(2, String.valueOf(status));
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt(1);
-                int status = rs.getInt(2);
-                cart = new Cart(id, userService.findById(idUser), status);
+                Cart cart = new Cart(id, userService.findById(idUser), status);
                 cart.setProducts(this.findProductsByCartId(id));
+                cartList.add(cart);
             }
         }
-        return cart;
+        return cartList;
     }
 
     @Override

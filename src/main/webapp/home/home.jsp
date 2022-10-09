@@ -303,7 +303,7 @@
     home ${sessionScope['userLogin'].name} / ${sessionScope['role']}
 
     <div>
-        <a href="/profile">Profile</a>
+        <a href="profile">Profile</a>
     </div>
 
     <div>
@@ -322,7 +322,7 @@
         <br>
 
         <div>
-            <a href="#">Cart Manager</a>
+            <a href="cart?action=manager">Cart Manager</a>
         </div>
 
     </c:if>
