@@ -8,10 +8,16 @@
     <jsp:include page="/bootstrap/bootstrap.jsp"></jsp:include>
     <%--bootstrap--%>
 
+    <style>
+        .card p {
+            font-size: 1.2vw;
+        }
+    </style>
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg" id="navbar">
+<nav class="navbar navbar-expand-lg" id="navbar" style="background: #eeeeee;">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img id="navbar-image" src="/image/Fnatic_icon.png" alt="" width="30" height="27"
@@ -49,12 +55,8 @@
                     </li>
                 </div>
             </ul>
-            <ul class="nav justify-content-end">
+            <ul class="nav justify-content-end align-items-center">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                       id="intl" style="color:black; font-weight: 500">
-                        Intl
-                    </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" style="font-weight: 500; font-size:15px" href="#">$ United
                             State</a></li>
@@ -65,19 +67,22 @@
                     </ul>
                 </li>
                 <li>
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <input id="searchInput" type="text" class="form-control" placeholder="Search something"
-                               aria-describedby="basic-addon2" oninput="actionSearch()">
+                               aria-describedby="basic-addon2">
                         <button type="submit" style="border: 1px solid lightgrey "><i class="bi bi-search"
                                                                                       aria-hidden="true"></i></button>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a type="button" class="btn btn-light" id="logIn" href="user?action=login">Log In</a>
-                </li>
-                <li class="nav-item">
-                    <a type="button" class="btn btn-dark" id="signUp" href="user?action=register">Sign Up</a>
-                </li>
+                <c:if test="${sessionScope['userLogin'] == null}">
+                    <li class="nav-item">
+                        <a type="button" class="btn btn-secondary" id="logIn" href="user?action=login">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a type="button" class="btn btn-dark" id="signUp" href="user?action=register">Sign Up</a>
+                    </li>
+                </c:if>
+
                 <%--                <li class="nav-item">--%>
                 <%--                    <a type="button" class="btn btn-dark" id="logOut" onclick="logOut()" href="index.html">Log Out</a>--%>
                 <%--                </li>--%>
@@ -85,48 +90,34 @@
         </div>
     </div>
 
-    <!--  Modal -->
-    <a href="cart">
-        <button id="cartButton"><i class="bi bi-bag-plus" aria-hidden="true">Shopping cart</i></button>
-    </a>
 
-    <a href="/profile">
-        <button id="profile"><i class="bi bi-person-plus-fill">My Profile</i></button>
-    </a>
+    <c:if test="${sessionScope['role'] == 'pm' || sessionScope['role'] == 'admin'}">
+        <a href="manage">
+            <button class="btn btn-primary">
+                Manager
+            </button>
+        </a>
+    </c:if>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Your Shopping Cart</h5>
-                <span class="close">&times;</span>
-            </div>
+    <c:if test="${sessionScope['userLogin'] != null}">
+        <a href="${sessionScope['userLogin'] != null ? "cart" : "user?action=login"}">
+            <button id="cartButton" class="btn btn-danger" style="width: 150px; background:#FF6027FF;border: #FF6027FF">
+                <i class="bi bi-bag-plus"
+                   aria-hidden="true">Shopping
+                    cart</i></button>
+        </a>
+        <a href="profile">
+            <button id="profile" class="btn btn-dark" style="width: 130px;"><i class="bi bi-person-plus-fill">My
+                Profile</i></button>
+        </a>
+    </c:if>
 
-            <div class="modal-body">
-                <div class="cart-row">
-                    <span class="cart-item cart-header cart-column">Product</span>
-                    <span class="cart-price cart-header cart-column">Price</span>
-                    <span class="cart-quantity cart-header cart-column">Quantity</span>
-                </div>
-                <div class="cart-items">
-                    <!--Bỏ trống để lát các sản phẩm nó điền vào-->
-                </div>
-                <div class="cart-total">
-                    <strong class="cart-total-title">Total:</strong>
-                    <span class="cart-total-price">0€</span>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary close-footer">Close</button>
-                <button type="button" class="btn btn-primary order">Get paid</button>
-            </div>
-        </div>
-    </div>
 </nav>
 
 
 <div id="intro" style="text-align: center">
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel"
+         style="background: #000; color: white">
         <div class="carousel-inner">
             <div class="carousel-item active" style="padding-top: 5px">
                 <h6><i class="bi bi-bell"></i> &nbsp 5 days a week support and live chat!</h6></p>
@@ -142,76 +133,105 @@
     </div>
 </div>
 
-<div id="productContainer">
-    <div class="row">
-        <div class="col">
+
+<div style="display: flex; justify-content: center; overflow: hidden;align-items: flex-start;">
+    <div style="width: 100%; overflow: hidden; margin-bottom: -150px; margin-top: -100px">
+        <video id="background-video" autoplay loop muted poster="https://assets.codepen.io/6093409/river.jpg"
+               width="100%">
+            <source src="https://download-video.akamaized.net/2/playback/507218a6-2b0e-452a-af80-8a231669e54c/e19b6867-a98d6a59?__token__=st=1665389793~exp=1665404193~acl=%2F2%2Fplayback%2F507218a6-2b0e-452a-af80-8a231669e54c%2Fe19b6867-a98d6a59%2A~hmac=12b8b4ec9aea0a8f1e5730194eb6a2d6d87072b539802928602deddf5e275850&r=dXMtd2VzdDE%3D"
+                    type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<div id="container"
+     style="
+        background: #e0e0e0;
+        padding-bottom: 15px;
+        border-radius: 0 0 16px 16px;
+        -webkit-box-shadow: 0 4px 10px 0 rgba(0,0,0,0.41);
+        box-shadow: 0 4px 10px 0 rgba(0,0,0,0.41);
+    ">
+    <div class="row m-0">
+        <div class="col p-0">
             <img class="variety"
                  src="https://cms-cdn.fnatic.com/images/5gii1snx/production/9eb837785beca2565db39881b9b9d69b46a0759e-1080x1080.svg?w=1920&h=80&q=100&fit=clip&auto=format"
-                 alt="">
-            <p style="text-align: center; font-size: 13px">Headsets</p>
+                 alt="" width="100%">
+            <h5 style="text-align: center; margin-top: -10px">Headsets</h5>
         </div>
-        <div class="col">
+        <div class="col p-0">
             <img class="variety"
                  src="https://cms-cdn.fnatic.com/images/5gii1snx/production/4605f89b3c559b8aee49d69e8cb4595de8c698e9-1080x1080.svg?w=1920&h=80&q=100&fit=clip&auto=format"
                  alt="">
-            <p style="text-align: center; font-size: 13px">Keyboards</p>
+            <h5 style="text-align: center; margin-top: -10px">Keyboards</h5>
         </div>
-        <div class="col">
+        <div class="col p-0">
             <img class="variety"
                  src="https://cms-cdn.fnatic.com/images/5gii1snx/production/abad9cb541a9415ac93041739e6740b7dad4f511-1080x1080.svg?w=1920&h=80&q=100&fit=clip&auto=format"
                  alt="">
-            <p style="text-align: center; font-size: 13px">Mice and Pads</p>
+            <h5 style="text-align: center; margin-top: -10px">Mice and Pads</h5>
         </div>
-        <div class="col">
+        <div class="col p-0">
             <img class="variety"
                  src="https://cms-cdn.fnatic.com/images/5gii1snx/production/4b754dc46f6a441cc1319b87b5b8171c40f41167-1080x1080.svg?w=1920&h=80&q=100&fit=clip&auto=format"
                  alt="">
-            <p style="text-align: center; font-size: 13px">PCs and Chairs</p>
+            <h5 style="text-align: center; margin-top: -10px">PCs and Chairs</h5>
         </div>
-        <div class="col">
+        <div class="col p-0">
             <img class="variety"
                  src="https://cms-cdn.fnatic.com/images/5gii1snx/production/249b07dde33b0a77c0d99bd792c4bbeddc0e471e-1080x1080.svg?w=1920&h=80&q=100&fit=clip&auto=format"
                  alt="">
-            <p style="text-align: center; font-size: 13px">Prokit</p>
+            <h5 style="text-align: center; margin-top: -10px">Prokit</h5>
         </div>
-        <div class="col">
+        <div class="col p-0">
             <img class="variety"
                  src="https://cms-cdn.fnatic.com/images/5gii1snx/production/1e1e44cbe878d8a7bfc52b7991e8344da6685369-1080x1080.svg?w=1920&h=80&q=100&fit=clip&auto=format"
                  alt="">
-            <p style="text-align: center; font-size: 13px">Apparel</p>
+            <h5 style="text-align: center; margin-top: -10px">Apparel</h5>
         </div>
-        <div class="col">
+        <div class="col p-0">
             <img class="variety"
                  src="https://cms-cdn.fnatic.com/images/5gii1snx/production/a69fff12420a16ec6a3f8c5be97752035b9c7137-1080x1080.svg?w=1920&h=80&q=100&fit=clip&auto=format"
                  alt="">
-            <p style="text-align: center; font-size: 13px">Accessorises</p>
+            <h5 style="text-align: center; margin-top: -10px">Accessorises</h5>
         </div>
-        <div class="col">
+        <div class="col p-0">
             <img class="variety"
                  src="https://cms-cdn.fnatic.com/images/5gii1snx/production/0ab3d301609db4979cb7a9e6315afbe2f825f712-1080x1080.svg?w=1920&h=80&q=100&fit=clip&auto=format"
                  alt="">
-            <p style="text-align: center; font-size: 13px">Digital Items</p>
+            <h5 style="text-align: center; margin-top: -10px">Digital Items</h5>
         </div>
     </div>
 </div>
 
-<div style="margin-left: 15px" class="container">
-    <p id="apparel">APPAREL</p>
+
+<div style="margin: 15px 0 0 15px" class="container">
+    <h4>APPAREL</h4>
     <h6 style="color: grey">Official Fnatic Apparel</h6>
     <br>
     <p id="filters"><i class="bi bi-command"></i> &nbsp Filters</p>
 </div>
 
 <%--******************************************************************--%>
-<div class="container-fluid mx-4">
+
+<div class="container-fluid">
     <div class="row row-cols-2 row-cols-md-4">
         <c:forEach items="${requestScope['productList']}" var="pr">
             <div class="col">
-                <div class="card" style="width: 293px">
-                    <img src="${pr.image}" width="293" height="250"
+                <div class="card"
+                     style="
+                     width: 100%;
+                     border-radius: 12px;
+                     overflow: hidden;
+                     margin-bottom: 20px;
+                     -webkit-box-shadow: 0 6px 13px 0 rgba(0,0,0,0.4);
+                     box-shadow: 0 6px 13px 0 rgba(0,0,0,0.4);
+                    ">
+                    <img src="${pr.image}" width="100%"
                          class="img-prd" alt="...">
                     <a href="cart?action=add&id=${pr.id}&qty=1">
-                        <button class="white-text"><i class="bi bi-bag-plus"></i></button>
+                        <button style="display: block;background: #ff6027; border: #ff6027; width: 100%; border-radius: 0 0 8px 8px; color: white; padding: 8px 0">
+                            <i class="bi bi-bag-plus"></i></button>
                     </a>
                     <div class="card-body">
                         <p class="content-product-h3">${pr.name}</p>
@@ -302,16 +322,20 @@
 </footer>
 
 <div>
-<%--da login--%>
-<c:if test="${sessionScope['userLogin'] != null}">
-    home ${sessionScope['userLogin'].name} / ${sessionScope['role']}<br>
+    <%--da login--%>
+    <c:if test="${sessionScope['userLogin'] != null}">
+        home ${sessionScope['userLogin'].name} / ${sessionScope['role']}<br>
 
 
-            <a href="profile"> <button><i aria-hidden="true">Profile</i></button></a>
-            <a href="cart"><button><i aria-hidden="true">My Cart</i></button></a>
+        <a href="profile">
+            <button><i aria-hidden="true">Profile</i></button>
+        </a>
+        <a href="cart">
+            <button><i aria-hidden="true">My Cart</i></button>
+        </a>
 
 
-    <c:if test="${sessionScope['role'] == 'pm' || sessionScope['role'] == 'admin'}">
+        <c:if test="${sessionScope['role'] == 'pm' || sessionScope['role'] == 'admin'}">
 
 
             <a href="category">
@@ -327,39 +351,16 @@
             </a>
 
 
+        </c:if>
+        <c:if test="${sessionScope['role'] == 'admin'}">
+            <a href="user">
+                <button><i aria-hidden="true">User Manager</i></button>
+            </a>
+        </c:if>
     </c:if>
-    <c:if test="${sessionScope['role'] == 'admin'}">
-        <a href="user">
-            <button><i aria-hidden="true">User Manager</i></button>
-        </a>
-    </c:if>
-</c:if>
-<%--da login--%>
+    <%--da login--%>
 </div>
-<%--chua login--%>
-<%--<c:if test="${sessionScope['userLogin'] == null}">--%>
-<%--    <a href="user?action=login">--%>
-<%--        <button>Login</button>--%>
-<%--    </a>--%>
-<%--    <a href="user?action=register">--%>
-<%--        <button>Register</button>--%>
-<%--    </a>--%>
-<%--</c:if>--%>
-<%--chua login--%>
 
-<%--<div>--%>
-<%--    <table border="1" width="100%">--%>
-<%--        <c:forEach items="${requestScope['productList']}" var="pr">--%>
-<%--            <tr>--%>
-<%--                <td>${pr.name}</td>--%>
-<%--                <td>--%>
-<%--                    <a href="cart?action=add&id=${pr.id}&qty=1">--%>
-<%--                        <button>ADD TO CART</button>--%>
-<%--                    </a>--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--        </c:forEach>--%>
-<%--    </table>--%>
-<%--</div>--%>
+
 </body>
 </html>
