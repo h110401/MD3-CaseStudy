@@ -1,3 +1,6 @@
+<%@ page import="rikkei.academy.model.User" %>
+<%@ page import="rikkei.academy.service.user.UserServiceIMPL" %>
+<%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%--implementation group: 'javax.servlet', name: 'jstl', version: '1.2'--%>
 <%--implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.30'--%>
@@ -11,6 +14,22 @@
 <body>
 
 <%
+    Cookie cookie = null;
+    Cookie[] cookies = request.getCookies();
+    for (Cookie c : cookies) {
+        if (c.getName().equals("id")) {
+            cookie = c;
+        }
+    }
+    if (cookie != null) {
+        int id = Integer.parseInt(cookie.getValue());
+        try {
+            User user = new UserServiceIMPL().findById(id);
+            request.getSession().setAttribute("userLogin", user);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     response.sendRedirect("home");
 %>
 
