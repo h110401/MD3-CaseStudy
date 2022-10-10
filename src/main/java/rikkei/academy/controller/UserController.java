@@ -37,8 +37,8 @@ public class UserController extends HttpServlet {
                 case "delete":
                     formDelete(request, response);
                     break;
-                case "profile":
-                    formProfile(request, response);
+                case "logout":
+                    logout(request, response);
                     break;
                 default:
                     listUser(request, response);
@@ -48,8 +48,11 @@ public class UserController extends HttpServlet {
         }
     }
 
-    private void formProfile(HttpServletRequest request, HttpServletResponse response) {
-
+    private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.removeAttribute("userLogin");
+        session.removeAttribute("role");
+        request.getRequestDispatcher("home").forward(request, response);
     }
 
     private void formRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -123,6 +126,12 @@ public class UserController extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("userLogin", user);
         session.setAttribute("role", user.getRole().getName());
+
+        if (request.getParameter("remember") != null) {
+            Cookie cookie = new Cookie("id", String.valueOf(user.getId()));
+
+            response.addCookie(cookie);
+        }
 
         response.sendRedirect("home");
     }

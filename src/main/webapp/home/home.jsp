@@ -68,22 +68,29 @@
                     </ul>
                 </li>
                 <li>
-                    <div class="input-group">
-                        <input id="searchInput" type="text" class="form-control" placeholder="Search something"
-                               aria-describedby="basic-addon2">
-                        <button type="submit" style="border: 1px solid lightgrey "><i class="bi bi-search"
-                                                                                      aria-hidden="true"></i></button>
-                    </div>
+                    <form class="d-flex align-items-center m-0" method="post">
+                        <div class="input-group ">
+                            <input id="searchInput" type="text" class="form-control" placeholder="Search something"
+                                   aria-describedby="basic-addon2" name="search">
+                            <button type="submit" style="border: 1px solid lightgrey; border-radius: 0 6px 6px 0"><i class="bi bi-search"
+                                                                                          aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </form>
                 </li>
                 <c:if test="${sessionScope['userLogin'] == null}">
                     <li class="nav-item">
-                        <a type="button" class="btn btn-secondary" id="logIn" href="user?action=login">Log In</a>
+                        <a type="button" class="btn btn-secondary ms-3" id="logIn" href="user?action=login">Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a type="button" class="btn btn-dark" id="signUp" href="user?action=register">Sign Up</a>
+                        <a type="button" class="btn btn-dark ms-3" id="signUp" href="user?action=register">Sign Up</a>
                     </li>
                 </c:if>
-
+                <c:if test="${sessionScope['userLogin'] != null}">
+                    <li class="nav-item">
+                        <a type="button" class="btn btn-secondary ms-3" href="user?action=logout">Log Out</a>
+                    </li>
+                </c:if>
                 <%--                <li class="nav-item">--%>
                 <%--                    <a type="button" class="btn btn-dark" id="logOut" onclick="logOut()" href="index.html">Log Out</a>--%>
                 <%--                </li>--%>
@@ -102,13 +109,15 @@
 
     <c:if test="${sessionScope['userLogin'] != null}">
         <a href="${sessionScope['userLogin'] != null ? "cart" : "user?action=login"}">
-            <button id="cartButton" class="btn btn-danger" style="width: 150px; background:#FF6027FF;border: #FF6027FF">
+            <button id="cartButton" class="btn btn-danger ms-2"
+                    style="width: 150px; background:#FF6027FF;border: #FF6027FF">
                 <span class="bi bi-bag-plus"
-                   aria-hidden="true"> Shopping
+                      aria-hidden="true"> Shopping
                     cart</span></button>
         </a>
         <a href="profile">
-            <button id="profile" class="btn btn-dark" style="width: 130px;"><span class="bi bi-person-plus-fill"> My Profile</span></button>
+            <button id="profile" class="btn btn-dark ms-2" style="width: 130px;"><span class="bi bi-person-plus-fill"> My Profile</span>
+            </button>
         </a>
     </c:if>
 
@@ -236,7 +245,7 @@
                     <div class="card-body">
                         <p class="content-product-h3">${pr.name}</p>
                         <p class="card-text"><small class="text-muted">${pr.category.categoryName}</small></p>
-                        <p class="price"><%=(int)((Product) pageContext.getAttribute("pr")).getPrice()%> €</p>
+                        <p class="price"><%=(int) ((Product) pageContext.getAttribute("pr")).getPrice()%> €</p>
                     </div>
                 </div>
             </div>
