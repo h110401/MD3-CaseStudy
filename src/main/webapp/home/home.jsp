@@ -138,7 +138,7 @@
     <div style="width: 100%; overflow: hidden; margin-bottom: -150px; margin-top: -100px">
         <video id="background-video" autoplay loop muted poster="https://assets.codepen.io/6093409/river.jpg"
                width="100%">
-            <source src="https://download-video.akamaized.net/2/playback/507218a6-2b0e-452a-af80-8a231669e54c/e19b6867-a98d6a59?__token__=st=1665389793~exp=1665404193~acl=%2F2%2Fplayback%2F507218a6-2b0e-452a-af80-8a231669e54c%2Fe19b6867-a98d6a59%2A~hmac=12b8b4ec9aea0a8f1e5730194eb6a2d6d87072b539802928602deddf5e275850&r=dXMtd2VzdDE%3D"
+            <source src="https://firebasestorage.googleapis.com/v0/b/fnatic-shop.appspot.com/o/e19b6867-a98d6a59.mp4?alt=media&token=9e4f787d-d60e-458d-872b-5d0328d69bdc"
                     type="video/mp4">
         </video>
     </div>
