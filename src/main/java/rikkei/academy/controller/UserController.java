@@ -52,6 +52,19 @@ public class UserController extends HttpServlet {
         HttpSession session = request.getSession();
         session.removeAttribute("userLogin");
         session.removeAttribute("role");
+
+        Cookie cookie = null;
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("id")) {
+                cookie = c;
+            }
+        }
+        if (cookie != null) {
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        }
+
         request.getRequestDispatcher("home").forward(request, response);
     }
 

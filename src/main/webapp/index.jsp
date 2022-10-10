@@ -16,11 +16,14 @@
 <%
     Cookie cookie = null;
     Cookie[] cookies = request.getCookies();
-    for (Cookie c : cookies) {
-        if (c.getName().equals("id")) {
-            cookie = c;
+    if(cookies != null) {
+        for (Cookie c : cookies) {
+            if (c.getName().equals("id")) {
+                cookie = c;
+            }
         }
     }
+
     if (cookie != null) {
         int id = Integer.parseInt(cookie.getValue());
         try {
