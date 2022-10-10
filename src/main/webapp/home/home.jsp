@@ -1,3 +1,4 @@
+<%@ page import="rikkei.academy.model.Product" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -102,13 +103,12 @@
     <c:if test="${sessionScope['userLogin'] != null}">
         <a href="${sessionScope['userLogin'] != null ? "cart" : "user?action=login"}">
             <button id="cartButton" class="btn btn-danger" style="width: 150px; background:#FF6027FF;border: #FF6027FF">
-                <i class="bi bi-bag-plus"
-                   aria-hidden="true">Shopping
-                    cart</i></button>
+                <span class="bi bi-bag-plus"
+                   aria-hidden="true"> Shopping
+                    cart</span></button>
         </a>
         <a href="profile">
-            <button id="profile" class="btn btn-dark" style="width: 130px;"><i class="bi bi-person-plus-fill">My
-                Profile</i></button>
+            <button id="profile" class="btn btn-dark" style="width: 130px;"><span class="bi bi-person-plus-fill"> My Profile</span></button>
         </a>
     </c:if>
 
@@ -236,7 +236,7 @@
                     <div class="card-body">
                         <p class="content-product-h3">${pr.name}</p>
                         <p class="card-text"><small class="text-muted">${pr.category.categoryName}</small></p>
-                        <p class="price">${pr.price}</p>
+                        <p class="price"><%=(int)((Product) pageContext.getAttribute("pr")).getPrice()%> €</p>
                     </div>
                 </div>
             </div>
@@ -320,47 +320,6 @@
         <br>
     </div>
 </footer>
-
-<div>
-    <%--da login--%>
-    <c:if test="${sessionScope['userLogin'] != null}">
-        home ${sessionScope['userLogin'].name} / ${sessionScope['role']}<br>
-
-
-        <a href="profile">
-            <button><i aria-hidden="true">Profile</i></button>
-        </a>
-        <a href="cart">
-            <button><i aria-hidden="true">My Cart</i></button>
-        </a>
-
-
-        <c:if test="${sessionScope['role'] == 'pm' || sessionScope['role'] == 'admin'}">
-
-
-            <a href="category">
-                <button><i aria-hidden="true">Category Manager</i></button>
-            </a>
-
-            <a href="product">
-                <button><i aria-hidden="true">Product Manager</i></button>
-            </a>
-
-            <a href="cart?action=manager">
-                <button><i aria-hidden="true">Cart Manager</i></button>
-            </a>
-
-
-        </c:if>
-        <c:if test="${sessionScope['role'] == 'admin'}">
-            <a href="user">
-                <button><i aria-hidden="true">User Manager</i></button>
-            </a>
-        </c:if>
-    </c:if>
-    <%--da login--%>
-</div>
-
 
 </body>
 </html>
