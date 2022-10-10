@@ -14,14 +14,12 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.List;
 
 @WebServlet(name = "CartController", value = "/cart")
 public class CartController extends HttpServlet {
     private final ICartService cartService = new CartServiceIMPL();
     private final IProductService productService = new ProductServiceIMPL();
-    private User userLogin;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -140,9 +138,17 @@ public class CartController extends HttpServlet {
         response.sendRedirect("cart");
     }
 
-    private void addToCart(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+    private void addToCart(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 
-        List<Cart> cartList = cartService.findCartByUSerId(getUserLogin(request).getId(), CartStatus.NOT_ORDER);
+        User userLogin = getUserLogin(request);
+
+
+        if (userLogin == null) {
+            response.sendRedirect("user?action=login");
+            return;
+        }
+
+        List<Cart> cartList = cartService.findCartByUSerId(userLogin.getId(), CartStatus.NOT_ORDER);
 
         Cart cart = null;
 
@@ -151,7 +157,7 @@ public class CartController extends HttpServlet {
         }
 
         if (cart == null) {
-            cart = cartService.save(getUserLogin(request).getId());
+            cart = cartService.save(userLogin.getId());
         }
 
         int qty = Integer.parseInt(request.getParameter("qty"));
@@ -212,9 +218,6 @@ public class CartController extends HttpServlet {
     }
 
     private User getUserLogin(HttpServletRequest request) {
-        if (userLogin == null) {
-            userLogin = (User) request.getSession().getAttribute("userLogin");
-        }
-        return userLogin;
+        return (User) request.getSession().getAttribute("userLogin");
     }
 }
