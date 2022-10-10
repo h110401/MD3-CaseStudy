@@ -16,9 +16,10 @@
 <div>
     Waiting
     <table>
-        <c:forEach items="${requestScope['orderedCart']}" var="cart">
+        <c:forEach items="${requestScope['orderedCarts']}" var="cart">
             <tr>
                 <td>${cart.id}</td>
+                <td>${cart.created}</td>
                 <td>
                     <a href="cart?action=remove-cart&id=${cart.id}">
                         <button>Retrieve</button>
@@ -32,9 +33,22 @@
 <div>
     History
     <table>
-        <c:forEach items="${requestScope['confirmedCart']}" var="cart">
+        <c:forEach items="${requestScope['confirmedCarts']}" var="cart">
             <tr>
                 <td>${cart.id}</td>
+                <td>${cart.changed}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+
+<div>
+    Cancelled
+    <table>
+        <c:forEach items="${requestScope['cancelledCarts']}" var="cart">
+            <tr>
+                <td>${cart.id}</td>
+                <td>${cart.changed}</td>
             </tr>
         </c:forEach>
     </table>

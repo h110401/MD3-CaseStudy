@@ -1,6 +1,9 @@
 package rikkei.academy.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Cart {
@@ -9,14 +12,18 @@ public class Cart {
 
     private User user;
 
-    private int status = 0;
+    private CartStatus status;
+
+    private Date created;
+
+    private Date changed;
 
     private List<Product> products = new ArrayList<>();
 
     public Cart() {
     }
 
-    public Cart(int id, User user, int status) {
+    public Cart(int id, User user, CartStatus status) {
         this.id = id;
         this.user = user;
         this.status = status;
@@ -46,21 +53,35 @@ public class Cart {
         this.products = products;
     }
 
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "id=" + id +
-                ", user=" + user +
-                ", products=" + products +
-                ", status=" + status +
-                '}';
+    public Date getCreated() {
+        return created;
     }
 
-    public int getStatus() {
+    public void setCreated(String created) {
+        try {
+            this.created = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(created);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Date getChanged() {
+        return changed;
+    }
+
+    public void setChanged(String changed) {
+        try {
+            this.changed = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(changed);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public CartStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(CartStatus status) {
         this.status = status;
     }
 
