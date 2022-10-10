@@ -18,55 +18,23 @@ Cart detail
 <a href="cart?action=manager">
     <button>Back</button>
 </a>
-<form method="post">
-    <table border="1" width="100%">
-        <c:forEach items="${requestScope['cart'].products}" var="pr">
-            <tr>
-                <td>
-                    <img src="${pr.image}" alt="image" width="200" height="200">
-                </td>
-                <td>${pr.name}</td>
-                <td>${pr.price}</td>
-                <td>${pr.quantity}</td>
-                <td>${pr.stock}</td>
-            </tr>
-        </c:forEach>
-    </table>
+<%=((boolean) request.getAttribute("available") ? "<form method='post'>" : "")%>
+<p>Created: ${requestScope['cart'].created}</p>
+<table border="1" width="100%">
+    <c:forEach items="${requestScope['cart'].products}" var="pr">
+        <tr>
+            <td>
+                <img src="${pr.image}" alt="image" width="200" height="200">
+            </td>
+            <td>${pr.name}</td>
+            <td>${pr.price}</td>
+            <td>${pr.quantity}</td>
+            <td>${pr.stock}</td>
+        </tr>
+    </c:forEach>
+</table>
 
-    <c:if test="${requestScope['available']}">
-<%--        <a href="cart?action=confirm-order">--%>
-            <button>Confirm</button>
-<%--        </a>--%>
-    </c:if>
-
-    <c:if test="${!requestScope['available']}">
-        <button type="button">Not available</button>
-    </c:if>
-</form>
-
-<%--<table border="1" width="100%">--%>
-<%--    <c:forEach items="${requestScope['cart'].products}" var="pr">--%>
-<%--        <tr>--%>
-<%--            <td>--%>
-<%--                <img src="${pr.image}" alt="image" width="200" height="200">--%>
-<%--            </td>--%>
-<%--            <td>${pr.name}</td>--%>
-<%--            <td>${pr.price}</td>--%>
-<%--            <td>${pr.quantity}</td>--%>
-<%--            <td>${pr.stock}</td>--%>
-<%--        </tr>--%>
-<%--    </c:forEach>--%>
-<%--</table>--%>
-
-<%--<c:if test="${requestScope['available']}">--%>
-<%--    <a href="cart?action=confirm-order">--%>
-<%--        <button>Confirm</button>--%>
-<%--    </a>--%>
-<%--</c:if>--%>
-
-<%--<c:if test="${!requestScope['available']}">--%>
-<%--    <button>Not available</button>--%>
-<%--</c:if>--%>
-
+<%=((boolean) request.getAttribute("available") ? "<button>Confirm</button></form>" : "<button>Not available</button>")%>
+<a href="cart?action=cancel&id=${requestScope['cart'].id}"><button>Cancel</button></a>
 </body>
 </html>
