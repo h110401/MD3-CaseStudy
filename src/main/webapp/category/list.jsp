@@ -22,6 +22,10 @@
     }
 </style>
 <body>
+
+<jsp:include page="../bootstrap/header.jsp"></jsp:include>
+
+
 <a href="category?action=create">create category</a>
 <form method="post">
     <input type="text" name="search">

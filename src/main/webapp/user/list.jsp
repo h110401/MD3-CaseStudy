@@ -10,13 +10,17 @@
 <html>
 <head>
     <title>List User</title>
+
+    <jsp:include page="../bootstrap/bootstrap.jsp"></jsp:include>
 </head>
 <body>
 
+<jsp:include page="../bootstrap/header.jsp"></jsp:include>
+
 <div>
-    <a href="home">Back</a>
+    <a href="manage" type="button" class="btn btn-danger m-3">Back</a>
 </div>
-<table border="1" width="100%">
+<table class="table table-striped table-hover text-center">
     <tr>
         <th>id</th>
         <th>name</th>

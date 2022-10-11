@@ -18,9 +18,13 @@
 </head>
 <body>
 
-<div>
-    home ${sessionScope['userLogin'].name} / ${sessionScope['role']}<br>
+<jsp:include page="../bootstrap/header.jsp"></jsp:include>
 
+<div class="p-3">
+
+    <h4 class="p-2">
+        Manager ${sessionScope['userLogin'].name} / ${sessionScope['role']}
+    </h4>
 
     <c:if test="${sessionScope['role'] == 'pm' || sessionScope['role'] == 'admin'}">
         <a href="category">
@@ -28,17 +32,17 @@
         </a>
         <br><br>
         <a href="product">
-            <button><i aria-hidden="true">Product Manager</i></button>
+            <button class="btn btn-primary"><i aria-hidden="true">Product Manager</i></button>
         </a>
         <br><br>
         <a href="cart?action=manager">
-            <button><i aria-hidden="true">Cart Manager</i></button>
+            <button class="btn btn-primary"><i aria-hidden="true">Cart Manager</i></button>
         </a>
         <br><br>
     </c:if>
     <c:if test="${sessionScope['role'] == 'admin'}">
         <a href="user">
-            <button><i aria-hidden="true">User Manager</i></button>
+            <button class="btn btn-primary"><i aria-hidden="true">User Manager</i></button>
         </a>
     </c:if>
 </div>

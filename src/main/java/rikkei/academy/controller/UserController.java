@@ -142,10 +142,8 @@ public class UserController extends HttpServlet {
 
         if (request.getParameter("remember") != null) {
             Cookie cookie = new Cookie("id", String.valueOf(user.getId()));
-
             response.addCookie(cookie);
         }
-
         response.sendRedirect("home");
     }
 

@@ -149,7 +149,6 @@ public class CartController extends HttpServlet {
         }
 
         List<Cart> cartList = cartService.findCartByUSerId(userLogin.getId(), CartStatus.NOT_ORDER);
-
         Cart cart = null;
 
         if (cartList.size() > 0) {

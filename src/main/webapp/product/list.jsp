@@ -10,16 +10,24 @@
 <html>
 <head>
     <title>Title</title>
+
+    <jsp:include page="../bootstrap/bootstrap.jsp"></jsp:include>
+
 </head>
 <body>
-<a href="product?action=create">create product</a>
-<form method="post">
-    <input type="text" name="search" placeholder="Search Product and By Name">
-    <button type="submit">Search</button>
 
-    <a href="home">Back to home</a>
+<jsp:include page="../bootstrap/header.jsp"></jsp:include>
+
+<a href="product?action=create" type="button" class="btn btn-success m-3">create product</a>
+<form method="post">
+    <div class="d-flex align-items-center">
+        <input type="text" name="search" placeholder="Search Product and By Name" style="height: 37px" class="ms-3 rounded">
+        <button type="submit" class="btn btn-secondary mx-3">Search</button>
+        <a href="manage" type="button" class="btn btn-danger">Back</a>
+    </div>
+
 </form>
-<table border="1" style="width: 75%">
+<table class="table table-striped table-hover text-center">
     <tr>
         <th>id</th>
         <th>name</th>
@@ -36,10 +44,10 @@
             <td><a href="product?action=detail&id=${pr.id}">${pr.name}</a></td>
             <td>${pr.category.categoryName}</td>
             <td>${pr.price}</td>
-            <td><img style="width: 200px" height="200px" src="${pr.image}" alt=""></td>
+            <td><img width="80" height="80" src="${pr.image}" alt=""></td>
             <td>${pr.quantity}</td>
-            <td><a href="product?action=edit&id=${pr.id}">edit</a></td>
-            <td><a href="product?action=delete&id=${pr.id}">delete</a></td>
+            <td><a href="product?action=edit&id=${pr.id}" type="button" class="btn btn-success">Edit</a></td>
+            <td><a href="product?action=delete&id=${pr.id}" type="button" class="btn btn-danger">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
