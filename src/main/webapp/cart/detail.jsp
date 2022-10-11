@@ -10,17 +10,24 @@
 <html>
 <head>
     <title>Details</title>
+
+    <jsp:include page="../bootstrap/bootstrap.jsp"></jsp:include>
+
 </head>
 <body>
 
-Cart detail
+<jsp:include page="../bootstrap/header.jsp"></jsp:include>
+
+<h4 class="m-3">
+    Cart detail
+</h4>
 
 <a href="cart?action=manager">
-    <button>Back</button>
+    <button class="m-3 btn btn-danger ">Back</button>
 </a>
 <%=((boolean) request.getAttribute("available") ? "<form method='post'>" : "")%>
 <p>Created: ${requestScope['cart'].created}</p>
-<table border="1" width="100%">
+<table class="table table-striped table-hover">
     <c:forEach items="${requestScope['cart'].products}" var="pr">
         <tr>
             <td>
@@ -34,7 +41,9 @@ Cart detail
     </c:forEach>
 </table>
 
-<%=((boolean) request.getAttribute("available") ? "<button>Confirm</button></form>" : "<button>Not available</button>")%>
-<a href="cart?action=cancel&id=${requestScope['cart'].id}"><button>Cancel</button></a>
+<%=((boolean) request.getAttribute("available") ? "<button class='btn btn-success m-3'>Confirm</button></form>" : "<button class='btn btn-secondary m-3'>Not available</button>")%>
+<a href="cart?action=cancel&id=${requestScope['cart'].id}">
+    <button class="btn btn-danger m-3">Cancel</button>
+</a>
 </body>
 </html>
